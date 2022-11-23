@@ -180,7 +180,10 @@ class _SignupPageState extends State<SignupPage> {
                 emailController.text,
                 passwordController.text,
                 firstNameController.text,
-                lasttNameController.text);
+                lasttNameController.text,
+                userNameController.text,
+                birthDateController.text,
+                locationController.text);
             Navigator.pop(context);
           }
         },
@@ -218,9 +221,12 @@ class _SignupPageState extends State<SignupPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25),
               ),
-              email,
               firstName,
               lastName,
+              birthDate,
+              location,
+              userName,
+              email,
               password,
               SignupButton,
               backButton

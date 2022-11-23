@@ -66,8 +66,8 @@ class FirebaseAuthAPI {
   //   return "tet";
   // }
 
-  void signUp(
-      String email, String password, String firstName, String lastName) async {
+  void signUp(String email, String password, String firstName, String lastName,
+      String userName, String birthDate, String location) async {
     UserCredential credential;
     try {
       credential = await auth.createUserWithEmailAndPassword(
@@ -75,7 +75,8 @@ class FirebaseAuthAPI {
         password: password,
       );
       if (credential.user != null) {
-        saveUserToFirestore(credential.user?.uid, email, firstName, lastName);
+        saveUserToFirestore(credential.user?.uid, email, firstName, lastName,
+            userName, birthDate, location);
       }
     } on FirebaseAuthException catch (e) {
       //possible to return something more useful
@@ -91,12 +92,24 @@ class FirebaseAuthAPI {
   }
 
   void saveUserToFirestore(
-      String? uid, String email, String firstName, lastName) async {
+      String? uid,
+      String email,
+      String firstName,
+      String lastName,
+      String userName,
+      String birthDate,
+      String location) async {
     try {
-      await db
-          .collection("users")
-          .doc(uid)
-          .set({"email": email, "firstName": firstName, "lastName": lastName});
+      await db.collection("users").doc(uid).set({
+        "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "userName": userName,
+        "birthDate": birthDate,
+        "location": location
+      });
+
+      await db.collection("users").doc(uid).update({'id': uid});
     } on FirebaseException catch (e) {
       print(e.message);
     }
