@@ -34,9 +34,9 @@ class _LoginPageState extends State<LoginPage> {
         hintText: "Email",
       ),
       validator: (email) {
-        if (email != null && email.length == 0) {
+        if (email!.isEmpty) {
           return 'Email required';
-        } else if (email != null && !EmailValidator.validate(email)) {
+        } else if (!EmailValidator.validate(email)) {
           return 'Email a valid email';
         } else {
           return null;
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
           hintText: 'Password',
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
+          if (value!.isEmpty) {
             return 'Password required';
           } else {
             return null;

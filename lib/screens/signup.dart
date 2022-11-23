@@ -64,7 +64,7 @@ class _SignupPageState extends State<SignupPage> {
         hintText: "Email",
       ),
       validator: (email) {
-        if (email != null && email.length == 0) {
+        if (email!.isEmpty) {
           return 'Email required';
         } else if (email != null && !EmailValidator.validate(email)) {
           return 'Email a valid email';
@@ -82,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
           hintText: "Username",
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
+          if (value!.isEmpty) {
             return 'Username Required';
           } else {
             return null;
@@ -97,7 +97,7 @@ class _SignupPageState extends State<SignupPage> {
           hintText: "Birthdate",
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
+          if (value!.isEmpty) {
             return 'Birthdate Required';
           } else {
             return null;
@@ -112,7 +112,7 @@ class _SignupPageState extends State<SignupPage> {
           hintText: "Location",
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
+          if (value!.isEmpty) {
             return 'Location Required';
           } else {
             return null;
@@ -127,7 +127,7 @@ class _SignupPageState extends State<SignupPage> {
           hintText: "First Name",
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
+          if (value!.isEmpty) {
             return 'First Name Required';
           } else {
             return null;
@@ -142,7 +142,7 @@ class _SignupPageState extends State<SignupPage> {
           hintText: "Last Name",
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
+          if (value!.isEmpty) {
             return 'Last Name Required';
           } else {
             return null;
@@ -157,15 +157,13 @@ class _SignupPageState extends State<SignupPage> {
           hintText: 'Password',
         ),
         validator: (value) {
-          if (value != null) {
-            if (value.isEmpty) {
-              return 'Password required';
+          if (value!.isEmpty) {
+            return 'Password required';
+          } else {
+            if (validateEmail(value)) {
+              return null;
             } else {
-              if (validateEmail(value)) {
-                return null;
-              } else {
-                return 'Enter valid password';
-              }
+              return 'Enter valid password';
             }
           }
         });
