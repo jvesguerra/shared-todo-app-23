@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "592891672732",
+    "project_id": "cmsc23-todo-app-jvesguerra",
+    "storage_bucket": "cmsc23-todo-app-jvesguerra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592891672732:android:165327260f365cfc835559",
+        "android_client_info": {
+          "package_name": "com.example.week7_networking_discussion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592891672732-kvefrjd6d3ejk1dtqjiltd274fgnrg5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk9Tu80GQT83KdidmiwmBufcgzX2BOWfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592891672732-kvefrjd6d3ejk1dtqjiltd274fgnrg5g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "592891672732-retjh4aqvkqpvue6ofgqmrihbfh8r0a7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.week7NetworkingDiscussion"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
