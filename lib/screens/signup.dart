@@ -39,6 +39,24 @@ class _SignupPageState extends State<SignupPage> {
     TextEditingController firstNameController = TextEditingController();
     TextEditingController lasttNameController = TextEditingController();
 
+    TextEditingController userNameController = TextEditingController();
+    TextEditingController birthDateController = TextEditingController();
+    TextEditingController locationController = TextEditingController();
+
+    bool validateEmail(String password) {
+      bool hasUppercase = password.contains(new RegExp(r'[A-Z]'));
+      bool hasDigits = password.contains(new RegExp(r'[0-9]'));
+      bool hasLowercase = password.contains(new RegExp(r'[a-z]'));
+      bool hasSpecialCharacters =
+          password.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+
+      if (password.length < 8) {
+        return false;
+      }
+
+      return hasDigits & hasUppercase & hasLowercase & hasSpecialCharacters;
+    }
+
     final email = TextFormField(
       key: const Key('emailField'),
       controller: emailController,
@@ -55,6 +73,51 @@ class _SignupPageState extends State<SignupPage> {
         }
       },
     );
+
+    //Username
+    final userName = TextFormField(
+        key: const Key('userNameField'),
+        controller: userNameController,
+        decoration: InputDecoration(
+          hintText: "Username",
+        ),
+        validator: (value) {
+          if (value != null && value.length == 0) {
+            return 'Username Required';
+          } else {
+            return null;
+          }
+        });
+
+    // Birthdate
+    final birthDate = TextFormField(
+        key: const Key('birthdateField'),
+        controller: birthDateController,
+        decoration: InputDecoration(
+          hintText: "Birthdate",
+        ),
+        validator: (value) {
+          if (value != null && value.length == 0) {
+            return 'Birthdate Required';
+          } else {
+            return null;
+          }
+        });
+
+    // Location
+    final location = TextFormField(
+        key: const Key('locationField'),
+        controller: locationController,
+        decoration: InputDecoration(
+          hintText: "Location",
+        ),
+        validator: (value) {
+          if (value != null && value.length == 0) {
+            return 'Location Required';
+          } else {
+            return null;
+          }
+        });
 
     //First name
     final firstName = TextFormField(
@@ -89,17 +152,21 @@ class _SignupPageState extends State<SignupPage> {
     final password = TextFormField(
         key: const Key('pwField'),
         controller: passwordController,
-        obscureText: true,
+        //obscureText: true,
         decoration: const InputDecoration(
           hintText: 'Password',
         ),
         validator: (value) {
-          if (value != null && value.length == 0) {
-            return 'Password required';
-          } else if (value != null && value.length < 6) {
-            return 'Enter valid password';
-          } else {
-            return null;
+          if (value != null) {
+            if (value.isEmpty) {
+              return 'Password required';
+            } else {
+              if (validateEmail(value)) {
+                return null;
+              } else {
+                return 'Enter valid password';
+              }
+            }
           }
         });
 

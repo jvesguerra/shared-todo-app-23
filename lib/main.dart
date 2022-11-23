@@ -58,7 +58,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (context.watch<AuthProvider>().isAuthenticated) {
-      return const FriendPage();
+      return const TodoPage();
     } else {
       return const LoginPage();
     }
