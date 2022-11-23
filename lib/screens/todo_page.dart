@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 /*
   Author: Joshua V. Esguerra
   Section: C4L
@@ -12,6 +14,7 @@ import 'package:week7_networking_discussion/models/todo_model.dart';
 import 'package:week7_networking_discussion/providers/todo_provider.dart';
 import 'package:week7_networking_discussion/providers/auth_provider.dart';
 import 'package:week7_networking_discussion/screens/modal_todo.dart';
+import 'package:week7_networking_discussion/screens/friend_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TodoPage extends StatefulWidget {
@@ -26,6 +29,7 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     // access the list of todos in the provider
     Stream<QuerySnapshot> todosStream = context.watch<TodoListProvider>().todos;
+    String displayName = "";
 
     return Scaffold(
       drawer: Drawer(
@@ -39,7 +43,15 @@ class _TodoPageState extends State<TodoPage> {
         ),
       ])),
       appBar: AppBar(
-        title: Text("Todo"),
+        title: Card(
+            child: TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search), hintText: 'Search...'),
+                onChanged: (val) {
+                  setState(() {
+                    displayName = val;
+                  });
+                })),
       ),
       body: StreamBuilder(
         stream: todosStream,
@@ -58,6 +70,7 @@ class _TodoPageState extends State<TodoPage> {
             );
           }
 
+          //if (displayName.isEmpty) {
           return ListView.builder(
             itemCount: snapshot.data?.docs.length,
             itemBuilder: ((context, index) {
@@ -121,6 +134,7 @@ class _TodoPageState extends State<TodoPage> {
               );
             }),
           );
+          //}
         },
       ),
       floatingActionButton: FloatingActionButton(

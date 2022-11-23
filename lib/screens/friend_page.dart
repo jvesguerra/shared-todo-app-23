@@ -66,7 +66,7 @@ class _FriendPageState extends State<FriendPage> {
             itemBuilder: ((context, index) {
               Friend friend = Friend.fromJson(
                   snapshot.data?.docs[index].data() as Map<String, dynamic>);
-              print(friend.id);
+              //print(friend.id);
               // if search bar is empty just show the collection
               if (displayName.isEmpty) {
                 return Dismissible(
@@ -86,33 +86,9 @@ class _FriendPageState extends State<FriendPage> {
                   ),
                   child: ListTile(
                     title: Text(friend.displayName),
-                    // leading: Checkbox(
-                    //   value: friend.completed,
-                    //   onChanged: (bool? value) {
-                    //     context
-                    //         .read<FriendListProvider>()
-                    //         .changeSelectedFriend(friend);
-                    //     context.read<FriendListProvider>().toggleStatus(value!);
-                    //   },
-                    // ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // IconButton(
-                        //   onPressed: () {
-                        //     context
-                        //         .read<FriendListProvider>()
-                        //         .changeSelectedFriend(friend);
-                        //     showDialog(
-                        //       context: context,
-                        //       builder: (BuildContext context) => FriendModal(
-                        //         type: 'Edit',
-                        //       ),
-                        //     );
-                        //   },
-                        //   icon: const Icon(Icons.create_outlined),
-                        // ),
-                        // Add friend button
                         IconButton(
                           onPressed: () {
                             context
@@ -208,33 +184,9 @@ class _FriendPageState extends State<FriendPage> {
                   ),
                   child: ListTile(
                     title: Text(friend.displayName),
-                    leading: Checkbox(
-                      value: friend.completed,
-                      onChanged: (bool? value) {
-                        context
-                            .read<FriendListProvider>()
-                            .changeSelectedFriend(friend);
-                        context.read<FriendListProvider>().toggleStatus(value!);
-                      },
-                    ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'Edit',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.create_outlined),
-                        ),
-                        // Add friend button
                         IconButton(
                           onPressed: () {
                             context
@@ -266,6 +218,22 @@ class _FriendPageState extends State<FriendPage> {
                           icon: const Icon(Icons.person_remove),
                         ),
 
+                        // show all friends
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<FriendListProvider>()
+                                .changeSelectedFriend(friend);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FriendModal(
+                                type: 'Showallfriends',
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.group),
+                        ),
+
                         // Show Friends List
                         IconButton(
                           onPressed: () {
@@ -286,6 +254,7 @@ class _FriendPageState extends State<FriendPage> {
                     ),
                   ),
                 );
+                //}
               }
               //changed
               return Container();
