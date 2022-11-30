@@ -1,3 +1,5 @@
+**Progress Report can be read below**
+
 A. Student Information
 
 Name: Joshua V. Esguerra
@@ -5,26 +7,37 @@ Student Number: 2020 03372
 Section: C4L
 
 B. App Description
-# Simple Todo App using Firebase
+#  Shared Todo App
 
-The todo app connects to firebase cloud firestore and authentication. It uses a provider for state management
+The project is a Flutter mobile application composed of a sign in, sign-up and a shared todo list features with a user’s friends. The database that will be used is Firebase.
 
 ## Folder Structure
 ```
 lib
 ├───api
-│   └───firebase_auth_api.dart*
-│   └───firebase_todo_api.dart
+│   ├───firebase_auth_api.dart
+│   ├───firebase_friend_api.dart
+│   ├───firebase_todo_api.dart
+│   └───friends_api.dart
 ├───models
+│   ├───friend_model.dart
 │   └───todo_model.dart
 ├───providers
-│   └───todo_provider.dart
-│   └───auth_provider.dart*
+│   ├───auth_provider.dart*
+│   ├───friend_provider.dart
+│   └───todo_provider.dart*
 ├───screens
-│   ├───modal_todo.dart
-│   └───todo_page.dart
-│   └───login.dart*
-│   └───signup.dart*
+│    ├───friend_page.dart*
+│    ├───friend_requests.dart*
+│    ├───friends_list.dart*
+│    ├───login.dart
+│    ├───modal_friend.dart
+│    ├───modal_todo.dart
+│    ├───profile_page.dart
+│    ├───signup.dart
+│    └───todo_page.dart
+│   
+|   
 └───main.dart
 ```
 
@@ -32,22 +45,21 @@ lib
 * Providers - contains the Todo provider that contains the data and method logic
 * Screens - contains the screen/widgets used
 
-C. Screenshots
+# Progress:
 
-D. Things you did in the code
+When you log in, you get directed to the Todo page. The TodoPage() contains a drawer and a search button at the top...
 
-Instead of using text field in my forms, I used text form fields to validate the user input. I used the validator in the text form field to check the value and prompt errors. I made sure that the validators always check that the fields have text on it. Before sending the data to firebase, I made a variable isValidForm which checks all the validation in the form. If it is true, it continues the sign up, else not.
+When you click the search button, you get directed to an empty FriendPage(). If you type something in the search bar, then it will search for the users. ( as of now it still streams friends list collection)
 
-E.
+When you click the drawer, you find 4 buttons... and when you click the button
 
-I faced a problem regarding how to return the error message from the firebase_auth_api back to the log in page so that the user can see it in the ui. I tried returning a Future<String> from auth_api to auth_provider to the log in page. I got to the point where I can print the error message from my log in page but it was not reflecting in my ui.
+Profile --> you get directed to ProfilePage()
 
-F. TEST CASES
+Friends List --> you get directed to FriendsList()
 
-Happy paths
-1. Users can sign up to the firebase using the sign up page.By clicking sign up from the log-in page, users will be redirected to the sign up page where their inputs will be validated before they could sign up.
-2. After signing up to the firebase, users can now log in and will be redirected to the to do app. They are able to add to do tasks and also log out by clicking the drawer on the left-side and pressing log out.
+Friend Requests --> you get directed to FriendRequests()
 
-Unhappy paths
-1.
-2.
+Logout --> you get logged out and redirected to LoginPage()
+
+Data is not yet fixed, it still gets its data to friends_list or todos. For now, It is just the navigation of pages and improving its design.
+
