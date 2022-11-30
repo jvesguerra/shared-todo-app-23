@@ -38,8 +38,9 @@ class _FriendsListState extends State<FriendsList> {
                   Friend friend = Friend.fromJson(snapshot.data?.docs[index]
                       .data() as Map<String, dynamic>);
                   return Padding(
-                    padding: const EdgeInsets.only(left: 30.0, top: 10.0),
-                    child: ListTile(
+                      padding: const EdgeInsets.only(left: 30.0, top: 10.0),
+                      child: ListTile(
+                        title: Text(friend.displayName),
                         leading: Row(mainAxisSize: MainAxisSize.min, children: [
                           IconButton(
                             onPressed: () {
@@ -57,8 +58,8 @@ class _FriendsListState extends State<FriendsList> {
                           ),
                         ]),
                         //title: Text(friend.friends![index]));
-                        title: Text(friend.displayName)),
-                  );
+                        //title: Text(friend.displayName)),
+                      ));
                 })),
           );
         },

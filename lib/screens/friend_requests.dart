@@ -40,38 +40,39 @@ class _FriendRequestsState extends State<FriendRequests> {
                   return Padding(
                     padding: const EdgeInsets.only(left: 30.0, top: 10.0),
                     child: ListTile(
-                        leading: Row(mainAxisSize: MainAxisSize.min, children: [
-                          IconButton(
-                            onPressed: () {
-                              context
-                                  .read<FriendListProvider>()
-                                  .changeSelectedFriend(friend);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => FriendModal(
-                                  type: 'AcceptFriend',
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.check_circle),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              context
-                                  .read<FriendListProvider>()
-                                  .changeSelectedFriend(friend);
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => FriendModal(
-                                  type: 'RejectFriend',
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.cancel),
-                          ),
-                        ]),
-                        //title: Text(friend.friends![index]));
-                        title: Text(friend.displayName)),
+                      title: Text(friend.displayName),
+                      leading: Row(mainAxisSize: MainAxisSize.min, children: [
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<FriendListProvider>()
+                                .changeSelectedFriend(friend);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FriendModal(
+                                type: 'AcceptFriend',
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.check_circle),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<FriendListProvider>()
+                                .changeSelectedFriend(friend);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => FriendModal(
+                                type: 'RejectFriend',
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.cancel),
+                        ),
+                      ]),
+                      //title: Text(friend.friends![index]));
+                    ),
                   );
                 })),
           );

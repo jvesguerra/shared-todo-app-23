@@ -29,11 +29,11 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
             ),
           ),
           Text(
-            "Sample Text",
+            "Joshua Esguerra",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           Text(
-            "sampletext@gmail.com",
+            "esguerrajoshua@gmail.com",
             style: TextStyle(
               color: Colors.grey[200],
               fontSize: 14,
