@@ -108,7 +108,8 @@ class FirebaseAuthAPI {
         "birthDate": birthDate,
         "location": location,
         "receivedFriendRequest": [],
-        "sentFriendRequest": []
+        "sentFriendRequest": [],
+        "todos": []
       });
 
       await db.collection("users").doc(uid).update({'id': uid});

@@ -13,9 +13,13 @@ import 'package:provider/provider.dart';
 import 'package:week7_networking_discussion/models/todo_model.dart';
 import 'package:week7_networking_discussion/providers/todo_provider.dart';
 import 'package:week7_networking_discussion/providers/auth_provider.dart';
+import 'package:week7_networking_discussion/screens/friend_requests.dart';
 import 'package:week7_networking_discussion/screens/modal_todo.dart';
 import 'package:week7_networking_discussion/screens/friend_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:week7_networking_discussion/screens/profile_page.dart';
+
+import 'friends_list.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
@@ -35,6 +39,33 @@ class _TodoPageState extends State<TodoPage> {
       drawer: Drawer(
           child: ListView(padding: EdgeInsets.zero, children: [
         ListTile(
+          title: const Text('Profile'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+          },
+        ),
+        ListTile(
+          title: const Text('Friends List'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FriendsList()),
+            );
+          },
+        ),
+        ListTile(
+          title: const Text('Friend Requests'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FriendRequests()),
+            );
+          },
+        ),
+        ListTile(
           title: const Text('Logout'),
           onTap: () {
             context.read<AuthProvider>().signOut();
@@ -43,17 +74,21 @@ class _TodoPageState extends State<TodoPage> {
         ),
       ])),
       appBar: AppBar(
-        title: Card(
-            child: TextField(
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search), hintText: 'Search...'),
-                onChanged: (val) {
-                  setState(() {
-                    displayName = val;
-                  });
-                })),
+        title: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              // Navigate back to first route when tapped.
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FriendPage()),
+              );
+            },
+            child: Icon(Icons.search),
+          ),
+        ),
       ),
       body: StreamBuilder(
+        //stream: FirebaseFirestore.instance.collection('users').snapshots(),
         stream: todosStream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -70,71 +105,73 @@ class _TodoPageState extends State<TodoPage> {
             );
           }
 
-          //if (displayName.isEmpty) {
           return ListView.builder(
             itemCount: snapshot.data?.docs.length,
             itemBuilder: ((context, index) {
               Todo todo = Todo.fromJson(
                   snapshot.data?.docs[index].data() as Map<String, dynamic>);
-              return Dismissible(
-                key: Key(todo.id.toString()),
-                onDismissed: (direction) {
-                  context.read<TodoListProvider>().changeSelectedTodo(todo);
-                  context.read<TodoListProvider>().deleteTodo();
+              if (displayName.isEmpty) {
+                return Dismissible(
+                  key: Key(todo.id.toString()),
+                  onDismissed: (direction) {
+                    context.read<TodoListProvider>().changeSelectedTodo(todo);
+                    context.read<TodoListProvider>().deleteTodo();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('${todo.title} dismissed')));
-                },
-                background: Container(
-                  color: Colors.red,
-                  child: const Icon(Icons.delete),
-                ),
-                child: ListTile(
-                  title: Text(todo.title),
-                  leading: Checkbox(
-                    value: todo.completed,
-                    onChanged: (bool? value) {
-                      context
-                          .read<TodoListProvider>()
-                          .toggleStatus(index, value!);
-                    },
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('${todo.title} dismissed')));
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    child: const Icon(Icons.delete),
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) => TodoModal(
-                          //     type: 'Edit',
-                          //     todoIndex: index,
-                          //   ),
-                          // );
-                        },
-                        icon: const Icon(Icons.create_outlined),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          context
-                              .read<TodoListProvider>()
-                              .changeSelectedTodo(todo);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => TodoModal(
-                              type: 'Delete',
-                            ),
-                          );
-                        },
-                        icon: const Icon(Icons.delete_outlined),
-                      )
-                    ],
+                  child: ListTile(
+                    title: Text(todo.title),
+                    leading: Checkbox(
+                      value: todo.completed,
+                      onChanged: (bool? value) {
+                        context
+                            .read<TodoListProvider>()
+                            .toggleStatus(index, value!);
+                      },
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) => TodoModal(
+                            //     type: 'Edit',
+                            //     todoIndex: index,
+                            //   ),
+                            // );
+                          },
+                          icon: const Icon(Icons.create_outlined),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            context
+                                .read<TodoListProvider>()
+                                .changeSelectedTodo(todo);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => TodoModal(
+                                type: 'Delete',
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.delete_outlined),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return const FriendPage();
+              }
             }),
           );
-          //}
         },
       ),
       floatingActionButton: FloatingActionButton(

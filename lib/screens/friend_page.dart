@@ -66,96 +66,9 @@ class _FriendPageState extends State<FriendPage> {
             itemBuilder: ((context, index) {
               Friend friend = Friend.fromJson(
                   snapshot.data?.docs[index].data() as Map<String, dynamic>);
-              //print(friend.id);
               // if search bar is empty just show the collection
               if (displayName.isEmpty) {
-                return Dismissible(
-                  key: Key(friend.id.toString()),
-                  onDismissed: (direction) {
-                    context
-                        .read<FriendListProvider>()
-                        .changeSelectedFriend(friend);
-                    context.read<FriendListProvider>().deleteFriend();
-
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('${friend.displayName} dismissed')));
-                  },
-                  background: Container(
-                    color: Colors.red,
-                    child: const Icon(Icons.delete),
-                  ),
-                  child: ListTile(
-                    title: Text(friend.displayName),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'Addfriend',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.person_add),
-                        ),
-
-                        // Delete Button
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'Delete',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.person_remove),
-                        ),
-
-                        // show all friends
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'Showallfriends',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.group),
-                        ),
-
-                        // Show Friends List
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                //type: 'Showfriendrequests',
-                                type: 'Showfriendrequests',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.list),
-                        )
-                      ],
-                    ),
-                  ),
-                );
+                return Container();
               }
 
               // can search with display name or username
@@ -254,7 +167,6 @@ class _FriendPageState extends State<FriendPage> {
                     ),
                   ),
                 );
-                //}
               }
               //changed
               return Container();
