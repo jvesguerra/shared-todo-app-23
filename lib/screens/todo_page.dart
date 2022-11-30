@@ -13,13 +13,13 @@ import 'package:provider/provider.dart';
 import 'package:week7_networking_discussion/models/todo_model.dart';
 import 'package:week7_networking_discussion/providers/todo_provider.dart';
 import 'package:week7_networking_discussion/providers/auth_provider.dart';
+import 'package:week7_networking_discussion/screens/drawer_header.dart';
 import 'package:week7_networking_discussion/screens/friend_requests.dart';
+import 'package:week7_networking_discussion/screens/friends_list.dart';
 import 'package:week7_networking_discussion/screens/modal_todo.dart';
 import 'package:week7_networking_discussion/screens/friend_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:week7_networking_discussion/screens/profile_page.dart';
-
-import 'friends_list.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
@@ -38,39 +38,56 @@ class _TodoPageState extends State<TodoPage> {
     return Scaffold(
       drawer: Drawer(
           child: ListView(padding: EdgeInsets.zero, children: [
-        ListTile(
-          title: const Text('Profile'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
-          },
+        MyHeaderDrawer(),
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: ListTile(
+            leading: Icon(Icons.portrait),
+            title: const Text('Profile'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+            },
+          ),
         ),
-        ListTile(
-          title: const Text('Friends List'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FriendsList()),
-            );
-          },
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: ListTile(
+            leading: Icon(Icons.group_sharp),
+            title: const Text('Friends List'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FriendsList()),
+              );
+            },
+          ),
         ),
-        ListTile(
-          title: const Text('Friend Requests'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FriendRequests()),
-            );
-          },
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: ListTile(
+            leading: Icon(Icons.menu_open),
+            title: const Text('Friend Requests'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FriendRequests()),
+              );
+            },
+          ),
         ),
-        ListTile(
-          title: const Text('Logout'),
-          onTap: () {
-            context.read<AuthProvider>().signOut();
-            Navigator.pop(context);
-          },
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: ListTile(
+            leading: Icon(Icons.logout_sharp),
+            title: const Text('Logout'),
+            onTap: () {
+              context.read<AuthProvider>().signOut();
+              Navigator.pop(context);
+            },
+          ),
         ),
       ])),
       appBar: AppBar(
