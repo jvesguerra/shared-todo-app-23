@@ -37,43 +37,42 @@ class _FriendRequestsState extends State<FriendRequests> {
                 itemBuilder: ((context, index) {
                   Friend friend = Friend.fromJson(snapshot.data?.docs[index]
                       .data() as Map<String, dynamic>);
-                  return ListTile(
-                      leading: Row(mainAxisSize: MainAxisSize.min, children: [
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'AcceptFriend',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.check_circle),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'RejectFriend',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.cancel),
-                        ),
-                      ]),
-                      trailing: const Text(
-                        "Pending",
-                        style: TextStyle(color: Colors.red, fontSize: 15),
-                      ),
-                      //title: Text(friend.friends![index]));
-                      title: Text(friend.displayName));
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 30.0, top: 10.0),
+                    child: ListTile(
+                        leading: Row(mainAxisSize: MainAxisSize.min, children: [
+                          IconButton(
+                            onPressed: () {
+                              context
+                                  .read<FriendListProvider>()
+                                  .changeSelectedFriend(friend);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FriendModal(
+                                  type: 'AcceptFriend',
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.check_circle),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              context
+                                  .read<FriendListProvider>()
+                                  .changeSelectedFriend(friend);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FriendModal(
+                                  type: 'RejectFriend',
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.cancel),
+                          ),
+                        ]),
+                        //title: Text(friend.friends![index]));
+                        title: Text(friend.displayName)),
+                  );
                 })),
           );
         },

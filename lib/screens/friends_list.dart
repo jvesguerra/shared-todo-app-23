@@ -37,25 +37,28 @@ class _FriendsListState extends State<FriendsList> {
                 itemBuilder: ((context, index) {
                   Friend friend = Friend.fromJson(snapshot.data?.docs[index]
                       .data() as Map<String, dynamic>);
-                  return ListTile(
-                      leading: Row(mainAxisSize: MainAxisSize.min, children: [
-                        IconButton(
-                          onPressed: () {
-                            context
-                                .read<FriendListProvider>()
-                                .changeSelectedFriend(friend);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => FriendModal(
-                                type: 'Unfriend',
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.cancel),
-                        ),
-                      ]),
-                      //title: Text(friend.friends![index]));
-                      title: Text(friend.displayName));
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 30.0, top: 10.0),
+                    child: ListTile(
+                        leading: Row(mainAxisSize: MainAxisSize.min, children: [
+                          IconButton(
+                            onPressed: () {
+                              context
+                                  .read<FriendListProvider>()
+                                  .changeSelectedFriend(friend);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => FriendModal(
+                                  type: 'Unfriend',
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.cancel),
+                          ),
+                        ]),
+                        //title: Text(friend.friends![index]));
+                        title: Text(friend.displayName)),
+                  );
                 })),
           );
         },
